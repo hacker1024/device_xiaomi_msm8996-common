@@ -16,7 +16,6 @@
 #
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_m.mk)
 
 # Get non-open-source specific aspects
 $(call inherit-product, vendor/xiaomi/msm8996-common/msm8996-common-vendor.mk)
@@ -24,6 +23,10 @@ $(call inherit-product, vendor/xiaomi/msm8996-common/msm8996-common-vendor.mk)
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
+    $(LOCAL_PATH)/overlay-lineage
+
+PRODUCT_ENFORCE_RRO_TARGETS := \
+    framework-res
 
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
@@ -34,7 +37,7 @@ TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
 # HWUI overrides
-# $(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-hwui-memory.mk)
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-hwui-memory.mk)
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -44,7 +47,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.front.xml \
-    frameworks/native/data/etc/android.hardware.camera.front.xml:/system/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.camera.full.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.full.xml \
     frameworks/native/data/etc/android.hardware.camera.raw.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.raw.xml \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml \
@@ -93,6 +95,7 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.effect@2.0-service \
     android.hardware.soundtrigger@2.0-impl \
     android.hardware.soundtrigger@2.0-service \
+    audiod \
     audio.a2dp.default \
     audio.primary.msm8996 \
     audio.r_submix.default \
@@ -128,20 +131,12 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-service \
     libbt-vendor
 
-# Boot animation
-TARGET_SCREEN_HEIGHT := 1920
-TARGET_SCREEN_WIDTH := 1080
-TARGET_BOOTANIMATION_HALF_RES := true
-TARGET_BOOTANIMATION_MULTITHREAD_DECODE := true
-
 # Camera
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service \
     camera.device@3.2-impl \
-    SnapdragonCamera \
-    camera.msm8996 \
-    libmm-qcamera \
+    Snap \
     vendor.qti.hardware.camera.device@1.0 \
     vendor.qti.hardware.camera.device@1.0_vendor
 
@@ -219,12 +214,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/etc/sap.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sap.conf \
     $(LOCAL_PATH)/gps/etc/xtwifi.conf:$(TARGET_COPY_OUT_VENDOR)/etc/xtwifi.conf
 
-# Healthd
-PRODUCT_PACKAGES += \
-    android.hardware.health@1.0-impl \
-    android.hardware.health@1.0-service \
-    chargeonlymode
-
 # HIDL
 PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
@@ -264,7 +253,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.xiaomi_8996
 
-#Live Display native
+# LiveDisplay native
 PRODUCT_PACKAGES += \
     libjni_livedisplay
 
@@ -367,7 +356,7 @@ PRODUCT_PACKAGES += \
 
 # Vibrator
 PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.0-impl
+    android.hardware.vibrator@1.0-service.lineage
 
 # WiFi
 PRODUCT_PACKAGES += \
@@ -388,17 +377,3 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
-
-# HWUI cache sizes
- PRODUCT_PROPERTY_OVERRIDES += \
-     ro.hwui.texture_cache_size=96 \
-     ro.hwui.path_cache_size=39 \
-     ro.hwui.layer_cache_size=64 \
-     ro.hwui.gradient_cache_size=1 \
-     ro.hwui.r_buffer_cache_size=12 \
-     ro.hwui.drop_shadow_cache_size=7 \
-     ro.hwui.text_large_cache_width=3072 \
-     ro.hwui.text_small_cache_width=2048 \
-     ro.hwui.text_large_cache_height=2048 \
-     ro.hwui.text_small_cache_height=2048 \
-     ro.hwui.texture_cache_flushrate=0.4

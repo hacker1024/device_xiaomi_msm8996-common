@@ -59,13 +59,13 @@
         <version>1.0</version>
         <interface>
             <name>ICryptoFactory</name>
-            <instance>default</instance>
             <instance>widevine</instance>
+            <instance>default</instance>
         </interface>
         <interface>
             <name>IDrmFactory</name>
-            <instance>default</instance>
             <instance>widevine</instance>
+            <instance>default</instance>
         </interface>
     </hal>
     <hal format="hidl">
@@ -84,7 +84,6 @@
         <interface>
             <name>IGnss</name>
             <instance>default</instance>
-            <instance>gnss_vendor</instance>
         </interface>
     </hal>
     <hal format="hidl">
@@ -111,15 +110,6 @@
         <version>2.0</version>
         <interface>
             <name>IMapper</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>android.hardware.health</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IHealth</name>
             <instance>default</instance>
         </interface>
     </hal>
@@ -262,7 +252,7 @@
     </hal>
     <hal format="hidl">
         <name>android.hardware.vibrator</name>
-        <transport arch="32+64">passthrough</transport>
+        <transport>hwbinder</transport>
         <version>1.0</version>
         <interface>
             <name>IVibrator</name>
@@ -320,6 +310,15 @@
         <version>1.0</version>
         <interface>
             <name>IApiService</name>
+            <instance>cnd</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>com.quicinc.cne.server</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IServer</name>
             <instance>cnd</instance>
         </interface>
     </hal>
@@ -406,6 +405,25 @@
         </interface>
     </hal>
     <hal format="hidl">
+        <name>vendor.qti.hardware.radio.atcmdfwd</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IAtCmdFwd</name>
+            <instance>AtCmdFwdService</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.qti.hardware.radio.config</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IConfig</name>
+            <instance>radioconfig0</instance>
+            <instance>radioconfig1</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
         <name>vendor.qti.hardware.radio.ims</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -422,6 +440,7 @@
         <interface>
             <name>IUimLpa</name>
             <instance>UimLpa0</instance>
+            <instance>UimLpa1</instance>
         </interface>
     </hal>
     <hal format="hidl">
@@ -481,6 +500,15 @@
         <interface>
             <name>IRTPService</name>
             <instance>imsrtpservice</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.qti.voiceprint</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IQtiVoicePrintService</name>
+            <instance>default</instance>
         </interface>
     </hal>
 </manifest>

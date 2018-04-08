@@ -17,12 +17,13 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           android:sharedUserId="android.uid.system"
-          package="com.cyanogenmod.settings.device"
+          package="org.lineageos.settings.device"
           android:versionCode="6"
           android:versionName="2.4" >
 
-    <uses-permission android:name="android.permission.INJECT_EVENTS"/>
-    <protected-broadcast android:name="com.cyanogenmod.settings.device.CUST_UPDATE" />
+    <protected-broadcast android:name="org.lineageos.settings.device.CUST_UPDATE" />
+
+    <uses-permission android:name="lineageos.permission.HARDWARE_ABSTRACTION_ACCESS" />
 
     <uses-sdk
         android:minSdkVersion="24" />
@@ -30,13 +31,13 @@
     <application
         android:icon="@mipmap/ic_launcher_settings"
         android:label="@string/device_settings_app_name"
-        android:theme="@style/XiaomiPartsTheme"
+        android:theme="@style/Theme.Main"
         android:defaultToDeviceProtectedStorage="true"
         android:directBootAware="true">
 
         <provider
             android:name=".ConfigPanelSearchIndexablesProvider"
-            android:authorities="com.cyanogenmod.settings.device"
+            android:authorities="org.lineageos.settings.device"
             android:multiprocess="false"
             android:grantUriPermissions="true"
             android:permission="android.permission.READ_SEARCH_INDEXABLES"
@@ -50,22 +51,7 @@
             android:name=".ButtonSettingsActivity"
             android:label="@string/button_panel_title">
             <intent-filter>
-                <action android:name="com.android.settings.action.EXTRA_SETTINGS" />
-            </intent-filter>
-            <meta-data
-                android:name="com.android.settings.icon"
-                android:resource="@drawable/ic_settings_device_features" />
-            <meta-data
-                android:name="com.android.settings.category"
-                android:value="com.android.settings.category.device" />
-        </activity>
-
-        <activity
-            android:name="com.cyanogenmod.settings.device.DisplayCalibration"
-            android:exported="true"
-            android:label="@string/kcal_title" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="org.lineageos.settings.device.ADDITIONAL_BUTTONS_SETTINGS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -74,8 +60,7 @@
 
         <receiver android:name=".Startup" >
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.PRE_BOOT_COMPLETED" />
+                <action android:name="lineageos.intent.action.INITIALIZE_LINEAGE_HARDWARE" />
             </intent-filter>
         </receiver>
     </application>
